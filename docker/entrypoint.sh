@@ -56,6 +56,7 @@ if ! grep -q "^APP_KEY=" .env || [ -z "$(grep -E '^APP_KEY=' .env | cut -d= -f2)
   php artisan key:generate --force
 fi
 
+php artisan package:discover --ansi || true
 php artisan storage:link || true
 php artisan config:cache || true
 php artisan route:cache || true
