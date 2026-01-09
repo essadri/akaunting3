@@ -9,8 +9,21 @@ fi
 
 touch .env
 
+run_user="www-data"
+run_group="www-data"
+
 if [ -n "${APP_UID:-}" ] && [ -n "${APP_GID:-}" ]; then
+  if ! getent group "${APP_GID}" >/dev/null 2>&1; then
+    groupadd -g "${APP_GID}" appgroup
+  fi
+
+  if ! id -u "${APP_UID}" >/dev/null 2>&1; then
+    useradd -u "${APP_UID}" -g "${APP_GID}" -m -s /bin/bash appuser
+  fi
+
   chown -R "${APP_UID}:${APP_GID}" /var/www/html
+  run_user="${APP_UID}"
+  run_group="${APP_GID}"
 fi
 
 set_env_value() {
@@ -65,4 +78,4 @@ php artisan storage:link || true
 php artisan config:cache || true
 php artisan route:cache || true
 
-exec "$@"
+exec gosu "${run_user}:${run_group}" "$@"

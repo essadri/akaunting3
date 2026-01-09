@@ -3,6 +3,7 @@ FROM php:8.2-apache
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         git \
+        gosu \
         unzip \
         libzip-dev \
         libpng-dev \
