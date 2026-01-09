@@ -20,8 +20,6 @@ services:
       DB_PASSWORD: akaunting
     depends_on:
       - db
-    volumes:
-      - app-storage:/var/www/html/storage
 
   db:
     image: mariadb:10.11
@@ -36,5 +34,4 @@ services:
       - db-data:/var/lib/mysql
 
 volumes:
-  app-storage:
   db-data:
