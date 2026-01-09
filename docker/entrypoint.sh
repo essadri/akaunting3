@@ -9,6 +9,10 @@ fi
 
 touch .env
 
+if [ -n "${APP_UID:-}" ] && [ -n "${APP_GID:-}" ]; then
+  chown -R "${APP_UID}:${APP_GID}" /var/www/html
+fi
+
 set_env_value() {
   local key="$1"
   local value="$2"

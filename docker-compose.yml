@@ -11,6 +11,8 @@ services:
       APP_URL: http://localhost:8080
       APP_ENV: local
       APP_DEBUG: "true"
+      APP_UID: 1000
+      APP_GID: 1000
       DB_HOST: db
       DB_PORT: 3306
       DB_DATABASE: akaunting
