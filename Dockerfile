@@ -5,6 +5,7 @@ RUN apt-get update \
         git \
         gosu \
         unzip \
+        libcap2-bin \
         libzip-dev \
         libpng-dev \
         libjpeg-dev \
@@ -19,6 +20,7 @@ RUN apt-get update \
         pdo_mysql \
         zip \
     && a2enmod rewrite \
+    && setcap 'cap_net_bind_service=+ep' /usr/sbin/apache2 \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
